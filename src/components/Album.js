@@ -39,6 +39,7 @@ handleSongClick(song) {
   if (this.state.isPlaying && isSameSong) {
     this.pause();
   } else {
+    if (!isSameSong) {  this.setSong(song); }
     this.play();
   }
 }
@@ -64,7 +65,7 @@ handleSongClick(song) {
             {
               this.state.album.songs.map( (song, index) =>
                 <tr className='song' key={index} onClick={() => this.handleSongClick(song)}>
-                  <td key={index+1}>{index+1}</td>
+                  <td>{index+1}</td>
                   <td>{song.title}</td>
                   <td>{song.duration}</td>
                 </tr>
