@@ -46,9 +46,8 @@ handleSongClick(song) {
   }
 }
 
-handleMouseEnter(song) {
+handleMouseEnter() {
   this.setState({ isHovered: true });
-  this.setState({ currentSong: song });
 }
 
 handleMouseLeave() {
@@ -79,6 +78,14 @@ handlePrevClick() {
   this.play();
 }
 
+handleNextClick() {
+  const currentIndex = this.state.album.songs.findIndex(song => this.state.currentSong === song);
+  const newIndex = Math.min(4, currentIndex + 1);
+  const newSong = this.state.album.songs[newIndex];
+  this.setSong(newSong);
+  this.play();
+}
+
   render() {
     return(
       <section className='album'>
@@ -103,7 +110,7 @@ handlePrevClick() {
                   className='song'
                   key={index}
                   onClick={() => this.handleSongClick(song)}
-                  onMouseEnter={() => this.handleMouseEnter(song)}
+                  onMouseEnter={() => this.handleMouseEnter()}
                   onMouseLeave={() => this.handleMouseLeave()}
                 >
                   <td>{this.renderButton(song, index)}</td>
@@ -119,6 +126,7 @@ handlePrevClick() {
           currentSong={this.state.currentSong}
           handleSongClick={() => this.handleSongClick(this.state.currentSong)}
           handlePrevClick={() => this.handlePrevClick()}
+          handleNextClick={() => this.handleNextClick()}
         />
       </section>
     );
